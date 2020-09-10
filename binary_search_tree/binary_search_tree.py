@@ -17,20 +17,55 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        #if the value is greater than the top node and right is empty assign to the right
+        if value >= self.value:
+            if not self.right:
+                self.right = BSTNode(value)
+            #if the right is pull recursively call insert
+            else:
+                self.right.insert(value)
+        # if value is less than top node and left is empty assign it here
+        else:
+            if not self.left:
+                self.left = BSTNode(value)
+            #if the left is full recursively call insert
+            else:
+                self.left.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # if the current node's value is the target, return True
+        if self.value == target:
+            return True
+        # else if there are children, call recursively on them.
+        elif self.right:
+            return self.right.contains(target)
+        elif self.left:
+            return self.left.contains(target)
+        else:
+            return False
+
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        while self.right:
+            self = self.right
+        return self.value
+        
+
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # perform the function on the current node
+        fn(self.value)
+        # if self.right exists perform the function on that node
+        if self.right:
+            self.right.for_each(fn)
+        # if self.left exists perform the function on that node
+        if self.left:
+            self.left.for_each(fn)
+     
 
     # Part 2 -----------------------
 
@@ -80,6 +115,6 @@ print("elegant methods")
 print("pre order")
 bst.pre_order_dft()
 print("in order")
-bst.in_order_dft()
+# bst.in_order_dft()
 print("post order")
 bst.post_order_dft()  
